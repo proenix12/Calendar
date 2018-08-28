@@ -1,0 +1,211 @@
+* {
+    box-sizing: border-box;
+  }
+  body, ul, li, div, nav {
+    margin: 0;
+    padding: 0;
+  }
+  .countdown{
+    text-align:center;
+    font-family:Helvetica, serif;
+  }
+  .countdown-block{
+    display:inline-block;
+    margin-top:0px;
+    margin-right:10px;
+    margin-bottom:0px;
+    margin-left:10px;
+    padding-top:10px;
+    padding-right:10px;
+    padding-bottom:10px;
+    padding-left:10px;
+  }
+  .countdown-digit{
+    font-size:5rem;
+  }
+  .countdown-endtext{
+    font-size:5rem;
+  }
+  .countdown-cont{
+    display:inline-block;
+  }
+
+  .container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+
+    meter {
+        /* Reset the default appearance */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+        margin: 0 auto 1em;
+        width: 100%;
+        height: 0.5em;
+
+        /* Applicable only to Firefox */
+        background: none;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    meter::-webkit-meter-bar {
+        background: none;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    /* Webkit based browsers */
+    meter[value="1"]::-webkit-meter-optimum-value { background: red; }
+    meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
+    meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
+    meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+
+    /* Gecko based browsers */
+    meter[value="1"]::-moz-meter-bar { background: red; }
+    meter[value="2"]::-moz-meter-bar { background: yellow; }
+    meter[value="3"]::-moz-meter-bar { background: orange; }
+    meter[value="4"]::-moz-meter-bar { background: green; }
+
+.button-primary {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-weight: 600;
+    outline: none;
+    border: 1px solid #4CAF50;}
+}
+
+.custom-select {
+    position: relative;
+    font-family: Arial;
+}
+
+.custom-select select {
+    display: none;
+}
+
+.calendar {
+    width: 700px;
+}
+.calendar div.dates, div.days, div.last-mouth {
+    display: inline-block;
+    float: left;
+}
+
+.dsfsddfs {
+    clear: both;
+}
+
+.su, .sa {
+    background-color: green!important;
+}
+
+.event {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+.m-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    color: red;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px; text-align: start;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
