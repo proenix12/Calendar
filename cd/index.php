@@ -1,19 +1,4 @@
-<?php
-	$servername = "localhost";
-	$username = "root";
-	$password = "486asd486";
-	$database = "Calendar";
-	
-	try {
-		$conn = new PDO( "mysql:host=$servername;dbname=$database", $username, $password );
-		$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-		
-	} catch ( PDOExtension $e ) {
-		echo "Connection failed" . $e->getMessage();
-	}
-
-?>
-
+<?php include 'config.php'; ?>
 <html lang="en" >
 <head >
     <meta charset="UTF-8" >
@@ -25,7 +10,7 @@
     <script src="assets/jquery-ui.min.js" ></script >
     <script src="javascript.js" ></script >
     <title >Document</title >
-
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet" >
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js" ></script >
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js" ></script >
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" ></script >
@@ -33,6 +18,36 @@
 
 </head >
 <body >
+<!-- The Modal -->
+<div id="myModal" class="modal hide" >
+
+    <!-- Modal content -->
+    <div class="modal-content" >
+        <span class="close" >&times;</span >
+        <div class="setEvent" >
+            <form action="" method="post" class="set-event-form" >
+                <div ><input type="text" class="event-title" placeholder="Add title" ></div >
+                <div >
+                    <select class="getHour" name="getHour" id="" >
+						<?php foreach ( halfHourTimes1() as $data ) : ?>
+
+                            <option value="<?php echo $data; ?>" ><?php echo $data; ?></option >
+						
+						<?php endforeach; ?>
+                    </select >
+                </div >
+                <input class="dat-post" type="hidden" name="dat-post" value="" >
+                <div ><input type="submit" ></div >
+            </form >
+        </div >
+    </div >
+
+</div >
+
+
+<div id="mySidenav" class="sidenav" >
+</div >
+
 <div class="header" >
     <div id="demo" ></div >
     <div id="i4ciew" class="countdown" >
@@ -54,39 +69,27 @@
               <div class="countdown-label" >seconds</div >
               </div >
             </span > <span data-js="countdown-endtext" class="countdown-endtext" ></span >
-		<?php
-			$colDate = date( 'd/M/Y' );
-			$explodeCd = explode( '/', $colDate );
-			
-			$month = date( 'm' );//strtotime('next month')
-			$year = date( 'Y' );
-			
-			$date = date( "d, m, Y" );
-			$explode = explode( ',', $date );
-			$days = cal_days_in_month( CAL_GREGORIAN, $explode[ 1 ], $explode[ 2 ] );
-		
-		?>
 
-        <div class="wrap" >
-            <div class="cvc" >
-                <form >
-                    <div >
-                        <input type="text" id="from" name="daterange" value="01/01/2018 - 01/15/2018" >
-                    </div >
-                    <div >
-                        <input type="text" id="to" >
-                    </div >
-                    <div >
-                    <textarea placeholder="Details" >
-                    
-                    </textarea >
-                    </div >
-                    <div >
-                        <input type="submit" >
-                    </div >
-                </form >
-            </div >
-        </div >
+        <!--        <div class="wrap" >-->
+        <!--            <div class="cvc" >-->
+        <!--                <form >-->
+        <!--                    <div >-->
+        <!--                        <input type="text" id="from" name="daterange" value="01/01/2018 - 01/15/2018" >-->
+        <!--                    </div >-->
+        <!--                    <div >-->
+        <!--                        <input type="text" id="to" >-->
+        <!--                    </div >-->
+        <!--                    <div >-->
+        <!--                    <textarea placeholder="Details" >-->
+        <!--                    -->
+        <!--                    </textarea >-->
+        <!--                    </div >-->
+        <!--                    <div >-->
+        <!--                        <input type="submit" >-->
+        <!--                    </div >-->
+        <!--                </form >-->
+        <!--            </div >-->
+        <!--        </div >-->
 
         <div class="calendar" >
 			<?php
@@ -113,29 +116,35 @@
 				endfor;
 			?>
 			<?php $count = 0;
-				for ( $i = 1; $i <= $days; $i++ ) {
+				for ( $i = 1; $i <= $days; $i++ ) :
 					$stmt = $conn->query( "SELECT * FROM aug2018 WHERE dayNumber = '" . $i . "'" );
 					$row = $stmt->fetch();
 					
-					$isArray = ( $row['dayNumber'] === $i ) ? 'eventOn' : 'noEvent';
+					$isEvent = ( $row[ 'dayNumber' ] == $i ) ? 'onEvent' : 'noEvent';
+					$isToday = ( $day == $i ) ? ' today' : ''; ?>
 					
-					if ( $explode[ 0 ] == $i ) {
-					echo '<div id="' . $i . '" class="dates" style="position: relative;" >
-                            <div class="df d-box-blue '.$isArray.'">' . $i . '</div>
-                         </div>';
-					} else if ( $i < $explode[ 0 ] ) {
-						echo '<div id="' . $i . '" class="dates" style="position: relative;" >
-                                <div class="df d-box-silver '.$isArray.'">' . $i . '</div>
-                             </div>';
-					} else if ( $i > $explode[ 0 ] ) {
-						echo '<div id="' . $i . '" class="dates" style="position: relative;" >
-                                <div class="df d-box-red '.$isArray.'">' . $i . '</div>
-                              </div>';
-					} else {
-						echo '<div class="df" id="' . $i . '" class="dates" style="width: 100px; height: 100px; border: 1px solid blue">' . $i . '</div>';
-					}
-				}
-			?>
+					<?php if ( $explode[ 0 ] == $i ) : ?>
+                    <div id="<?php echo $i ?>" class="dates" style="position: relative;" >
+                        <div class="df d-box-blue <?php echo $isToday ?>" >
+                            <span class="<?php echo $isEvent ?>-blue" data-full-day="<?php echo date( "$i-m-Y" ) ?>" data-day="<?php echo $i ?>" ><?php echo $i ?></span >
+                        </div >
+                    </div >
+				<?Php elseif ( $i < $explode[ 0 ] ) : ?>
+                    <div id="<?php echo $i ?>" class="dates" style="position: relative;" >
+                        <div class="df d-box-silver <?php echo $isToday ?>" >
+                            <span class="<?php echo $isEvent ?>-silver" data-full-day="<?php echo date( "$i-m-Y" ) ?>" data-day="<?php echo $i ?>" ><?php echo $i ?></span >
+                        </div >
+                    </div >
+				<?php elseif ( $i > $explode[ 0 ] ) : ?>
+                    <div id="<?php echo $i ?>" class="dates" style="position: relative;" >
+                        <div class="df d-box-red <?php echo $isToday ?>" >
+                            <span class="<?php echo $isEvent ?>-red" data-full-day="<?php echo date( "$i-m-Y" ) ?>" data-day="<?php echo $i ?>" ><?php echo $i ?></span >
+                        </div >
+                    </div >
+				<?php else : ?>
+                    <div class="df" id="<?php echo $i ?>" class="dates" style="width: 100px; height: 100px; border: 1px solid blue" ><?php echo $i ?></div >
+				<?php endif; ?>
+				<?php endfor; ?>
             <div class="clearfix" ></div >
         </div >
     </div >
